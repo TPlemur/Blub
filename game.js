@@ -19,5 +19,3 @@ function update() {
 }
 
 addEventListener("load", onLoad);
-
-//TEST COMMIT
