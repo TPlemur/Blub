@@ -2,7 +2,14 @@ title = "Blub";
 
 description = ``;
 
-characters = [];
+characters = [
+    `
+  L
+  LL  L
+ LLLLLL
+ LLLLLL
+  LLL L`
+];
 
 const G ={
    WIDTH: 150,
