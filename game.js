@@ -3,12 +3,12 @@ title = "Blub";
 description = ``;
 
 characters = [
-    `
+`
   L
-  LL  L
- LLLLLL
- LLLLLL
-  LLL L`
+ LL  L
+LLLLLL
+LLLLLL
+ LLL L`
 ];
 
 const G ={
@@ -23,6 +23,7 @@ options = {
 function update() {
     if (!ticks) {
     }
+    char('a',75,75)
 }
 
 addEventListener("load", onLoad);
