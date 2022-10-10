@@ -8,7 +8,21 @@ characters = [
  LL  L
 LLLLLL
 LLLLLL
- LLL L`
+ LLL L`,
+  `
+l  l
+ l  l
+  lllL
+ l  l
+l  l
+  `,
+`
+
+
+  lllL
+
+  
+`
 ];
 
 const G ={
