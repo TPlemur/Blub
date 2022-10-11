@@ -42,7 +42,8 @@ let player = {
 let swimSpd = 1;
 
 let enemies;
-let enemySwimSpd = 0.5;//4 * (difficulty*0.25);
+let enemySwimSpd = 0.5;// * (difficulty * 0.5);
+console.log(difficulty)
 
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
@@ -71,7 +72,7 @@ function update() {
 
       enemies = []
     }
-    char('a',75,75) //friendly neighborhood random shark
+
     char('b', player.pos);
     player.pos.clamp(0, G.WIDTH, 10, G.HEIGHT - 10); //Keeps player from going offscreen
     // Player "swimming" controls
@@ -80,6 +81,7 @@ function update() {
     }else{
       player.pos.y += swimSpd;
     }
+
     // Update bubbles
     color("light_black");
     bubbles.forEach((s) => {
@@ -89,24 +91,31 @@ function update() {
     });
     color("black");
 
-    
-
-    if (enemies.length === 0) {
-      // currentEnemySpeed =
-      //     rnd(G.ENEMY_MIN_BASE_SPEED, G.ENEMY_MAX_BASE_SPEED) * difficulty;
+    // Spawns more sharks if not enough on screen
+    if (enemies.length <= 5) {
       for (let i = 0; i < 9; i++) {
-          const posX = rnd(10, G.WIDTH - 10);
-          const posY = -rnd(i * G.HEIGHT * 0.1);
+          const posX = rnd(G.WIDTH, i * G.WIDTH * 0.1 + G.WIDTH);
+          const posY = rnd(10, G.HEIGHT - 10);
           enemies.push({ pos: vec(posX, posY) })
       }
     }
 
     remove(enemies, (e) => {
-      e.pos.y += enemySwimSpd;
+      // Moves sharks
+      e.pos.x -= enemySwimSpd;
       color("black");
       char("a", e.pos);
 
-      return (e.pos.y > G.HEIGHT);
+      // If a shark hits the player, ends game
+      isCollidingWithPlayer = char("a", e.pos).isColliding.char.b;
+      if(isCollidingWithPlayer){
+        end();
+      }
+
+      if(e.pos.x < 0){
+        addScore(10);
+      }
+      return (e.pos.x < 0);
     });
 }
 
