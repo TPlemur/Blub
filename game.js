@@ -34,8 +34,10 @@ const G ={
 let player = {
   pos: vec(G.WIDTH * 0.25, G.HEIGHT * 0.75)
 };;
-
 let swimSpd = 1;
+
+let enemies;
+let enemySwimSpd = 0.5;//4 * (difficulty*0.25);
 
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
@@ -44,6 +46,7 @@ options = {
 
 function update() {
     if (!ticks) {
+      enemies = []
     }
     char('a',75,75)
     char('b', player.pos);
@@ -54,6 +57,26 @@ function update() {
     }else{
       player.pos.y += swimSpd;
     }
+
+    
+
+    if (enemies.length === 0) {
+      // currentEnemySpeed =
+      //     rnd(G.ENEMY_MIN_BASE_SPEED, G.ENEMY_MAX_BASE_SPEED) * difficulty;
+      for (let i = 0; i < 9; i++) {
+          const posX = rnd(10, G.WIDTH - 10);
+          const posY = -rnd(i * G.HEIGHT * 0.1);
+          enemies.push({ pos: vec(posX, posY) })
+      }
+    }
+
+    remove(enemies, (e) => {
+      e.pos.y += enemySwimSpd;
+      color("black");
+      char("a", e.pos);
+
+      return (e.pos.y > G.HEIGHT);
+    });
 }
 
 addEventListener("load", onLoad);
