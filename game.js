@@ -1,6 +1,6 @@
 title = "Blub";
 
-description = ``;
+description = `[Hold] to swim up`;
 
 characters = [
 `
