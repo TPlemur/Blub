@@ -26,9 +26,14 @@ l  l
 `
 ];
 
+
+
 const G ={
    WIDTH: 150,
    HEIGHT: 150, 
+   NUMBUB: 20,
+   BUBMIN: 0.5,
+   BUBMAX: 1.0
 };
 
 let player = {
@@ -44,11 +49,29 @@ options = {
     theme: "dark"
   };
 
+/** 
+ * @typedef {object} Bubble
+ * @property {Vector} pos
+ * @property {number} speed
+*/
+/**
+ * @type {Bubble[]}
+ */
+let bubbles;
+
 function update() {
     if (!ticks) {
+      //make bubbles with random pos and speed
+      bubbles = times(G.NUMBUB, ()=>{
+        return{
+          pos: vec(rnd(0, G.WIDTH),rnd(0,G.HEIGHT)),
+          speed: rnd(G.BUBMIN,G.BUBMAX)
+        };
+      });
+
       enemies = []
     }
-    char('a',75,75)
+    char('a',75,75) //friendly neighborhood random shark
     char('b', player.pos);
     player.pos.clamp(0, G.WIDTH, 10, G.HEIGHT - 10); //Keeps player from going offscreen
     // Player "swimming" controls
@@ -57,6 +80,14 @@ function update() {
     }else{
       player.pos.y += swimSpd;
     }
+    // Update bubbles
+    color("light_black");
+    bubbles.forEach((s) => {
+      s.pos.x -= s.speed;
+      s.pos.wrap(0, G.WIDTH, 0, G.HEIGHT);
+      box(s.pos, 1);
+    });
+    color("black");
 
     
 
