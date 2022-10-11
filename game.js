@@ -23,6 +23,12 @@ l  l
   lllL
 
   
+`,
+`
+  YY
+ YyyY
+ YyyY
+  YY
 `
 ];
 
@@ -33,16 +39,16 @@ const G ={
    HEIGHT: 150, 
    NUMBUB: 20,
    BUBMIN: 0.5,
-   BUBMAX: 1.0
+   BUBMAX: 1.0,
+   SWIMSPD: 1,
+   ENEMYSPD: 0.5 // * (difficulty * 0.5);
 };
 
 let player = {
   pos: vec(G.WIDTH * 0.25, G.HEIGHT * 0.75)
 };;
-let swimSpd = 1;
 
 let enemies;
-let enemySwimSpd = 0.5;// * (difficulty * 0.5);
 console.log(difficulty)
 
 options = {
@@ -77,9 +83,9 @@ function update() {
     player.pos.clamp(0, G.WIDTH, 10, G.HEIGHT - 10); //Keeps player from going offscreen
     // Player "swimming" controls
     if(input.isPressed){
-      player.pos.y -= swimSpd;
+      player.pos.y -= G.SWIMSPD;
     }else{
-      player.pos.y += swimSpd;
+      player.pos.y += G.SWIMSPD;
     }
 
     // Update bubbles
@@ -102,7 +108,7 @@ function update() {
 
     remove(enemies, (e) => {
       // Moves sharks
-      e.pos.x -= enemySwimSpd;
+      e.pos.x -= G.ENEMYSPD;
       color("black");
       char("a", e.pos);
 
