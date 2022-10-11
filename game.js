@@ -124,6 +124,7 @@ function update() {
       // If a shark hits the player, ends game
       isCollidingWithPlayer = char("a", e.pos).isColliding.char.b;
       if(isCollidingWithPlayer){
+        play("explosion");
         end();
       }
 
