@@ -68,7 +68,7 @@ function update() {
       });
 
     }
-    char('a',75,75)
+    char('a',75,75) //friendly neighborhood random shark
     char('b', player.pos);
     player.pos.clamp(0, G.WIDTH, 10, G.HEIGHT - 10); //Keeps player from going offscreen
     // Player "swimming" controls
