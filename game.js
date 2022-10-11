@@ -86,6 +86,7 @@ function update() {
     // Player "swimming" controls
     if(input.isPressed){
       player.pos.y -= G.SWIMSPD;
+      char('b', player.pos);
     }else{
       player.pos.y += G.SWIMSPD;
     }
@@ -100,20 +101,16 @@ function update() {
     color("black");
 
     // Spawns more sharks if not enough on screen
-    if (enemies.length <= 5) {
-      for (let i = 0; i < 9; i++) {
-          const posX = rnd(G.WIDTH, i * G.WIDTH * 0.1 + G.WIDTH);
+    if (enemies.length <= 15) {
+          const posX = rnd(G.WIDTH, G.WIDTH * 1.0 + G.WIDTH);
           const posY = rnd(10, G.HEIGHT - 10);
           enemies.push({ pos: vec(posX, posY) })
-      }
     }
 
-    if (coins.length <= 5) {
-      for (let i = 0; i < 9; i++) {
-          const posX = rnd(G.WIDTH, i * G.WIDTH * 0.1 + G.WIDTH);
+    if (coins.length <= 15) {
+          const posX = rnd(G.WIDTH, G.WIDTH * 1 + G.WIDTH);
           const posY = rnd(10, G.HEIGHT - 10);
           coins.push({ pos: vec(posX, posY) })
-      }
     }
 
     remove(enemies, (e) => {
