@@ -38,8 +38,8 @@ const G ={
    WIDTH: 150,
    HEIGHT: 150, 
    NUMBUB: 20,
-   BUBMIN: 0.5,
-   BUBMAX: 1.0,
+   BUBMIN: 0.3,
+   BUBMAX: 0.8,
    SWIMSPD: 1,
    ENEMYSPD: 0.5 // * (difficulty * 0.5);
 };
@@ -54,7 +54,9 @@ console.log(difficulty)
 
 options = {
     viewSize: {x: G.WIDTH, y:G.HEIGHT},
-    theme: "dark"
+    theme: "dark",
+    seed: 3,
+    isPlayingBgm: true
   };
 
 /** 
@@ -94,7 +96,7 @@ function update() {
     // Update bubbles
     color("light_black");
     bubbles.forEach((s) => {
-      s.pos.x -= s.speed;
+      s.pos.x -= s.speed * difficulty;
       s.pos.wrap(0, G.WIDTH, 0, G.HEIGHT);
       box(s.pos, 1);
     });
@@ -126,7 +128,7 @@ function update() {
       }
 
       if(e.pos.x < 0){
-        addScore(10);
+        //addScore(10);
       }
       return (e.pos.x < 0);
     });
@@ -141,6 +143,7 @@ function update() {
       isCollidingWithPlayer = char("d", c.pos).isColliding.char.b;
       if(isCollidingWithPlayer){
         addScore(100);
+        play("coin");
       }
 
       return (isCollidingWithPlayer || c.pos.x < 0);
