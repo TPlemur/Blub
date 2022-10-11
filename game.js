@@ -49,6 +49,7 @@ let player = {
 };;
 
 let enemies;
+let coins;
 console.log(difficulty)
 
 options = {
@@ -76,7 +77,8 @@ function update() {
         };
       });
 
-      enemies = []
+      enemies = [];
+      coins = [];
     }
 
     char('b', player.pos);
@@ -106,6 +108,14 @@ function update() {
       }
     }
 
+    if (coins.length <= 5) {
+      for (let i = 0; i < 9; i++) {
+          const posX = rnd(G.WIDTH, i * G.WIDTH * 0.1 + G.WIDTH);
+          const posY = rnd(10, G.HEIGHT - 10);
+          coins.push({ pos: vec(posX, posY) })
+      }
+    }
+
     remove(enemies, (e) => {
       // Moves sharks
       e.pos.x -= G.ENEMYSPD;
@@ -122,6 +132,21 @@ function update() {
         addScore(10);
       }
       return (e.pos.x < 0);
+    });
+
+    remove(coins, (c) => {
+      // Moves coins
+      c.pos.x -= G.ENEMYSPD;
+      color("black");
+      char("d", c.pos);
+
+      // Player collects coins
+      isCollidingWithPlayer = char("d", c.pos).isColliding.char.b;
+      if(isCollidingWithPlayer){
+        addScore(100);
+      }
+
+      return (isCollidingWithPlayer || c.pos.x < 0);
     });
 }
 
