@@ -38,8 +38,8 @@ const G ={
    WIDTH: 150,
    HEIGHT: 150, 
    NUMBUB: 20,
-   BUBMIN: 0.3,
-   BUBMAX: 0.8,
+   BUBMIN: 0.2,
+   BUBMAX: 0.7,
    SWIMSPD: 1,
    ENEMYSPD: 0.5 // * (difficulty * 0.5);
 };
@@ -117,7 +117,7 @@ function update() {
 
     remove(enemies, (e) => {
       // Moves sharks
-      e.pos.x -= G.ENEMYSPD;
+      e.pos.x -= G.ENEMYSPD*difficulty;
       color("black");
       char("a", e.pos);
 
@@ -136,7 +136,7 @@ function update() {
 
     remove(coins, (c) => {
       // Moves coins
-      c.pos.x -= G.ENEMYSPD;
+      c.pos.x -= G.ENEMYSPD*difficulty;
       color("black");
       char("d", c.pos);
 
